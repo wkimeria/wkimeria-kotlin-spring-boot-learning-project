@@ -1,5 +1,6 @@
 package com.kimeria.learning.theater.control
 
+import com.kimeria.learning.theater.data.SeatRepository
 import com.kimeria.learning.theater.services.BookingService
 import com.kimeria.learning.theater.services.TheaterService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,6 +18,9 @@ class MainController{
     @Autowired
     lateinit var bookingService: BookingService
 
+    @Autowired
+    lateinit var seatRepository: SeatRepository
+
     @RequestMapping("")
     fun homePage(): ModelAndView{
         return ModelAndView("seatBooking", "bean", CheckAvailabilityBackingBean())
@@ -29,6 +33,14 @@ class MainController{
         bean.result = "Seat $selectedSeat is " + if(result) "available" else "booked"
         return ModelAndView("seatBooking", "bean", bean)
 
+    }
+
+    @RequestMapping("bootstrap")
+    fun createInitialData(): ModelAndView{
+        val seats = theaterService.seats
+        seatRepository.saveAll(seats)
+
+        return homePage()
     }
 }
 

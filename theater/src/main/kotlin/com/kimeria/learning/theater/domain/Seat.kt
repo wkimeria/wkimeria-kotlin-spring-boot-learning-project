@@ -1,7 +1,13 @@
 package com.kimeria.learning.theater.domain
 
+import jakarta.persistence.*
 import java.math.BigDecimal
+import kotlin.properties.Delegates
 
-data class Seat(val row: Char, val num: Int, val price: BigDecimal, val description: String) {
-    override fun toString(): String = "Seat $row-$num $$price ($description)"
-}
+@Entity
+data class Seat(@Id @GeneratedValue(strategy = GenerationType.AUTO)
+                val id: Long = 0,
+                val rowNum: Char = 'A',
+                val num: Int = 0,
+                val price: BigDecimal = BigDecimal.ZERO,
+                val description: String = "")
