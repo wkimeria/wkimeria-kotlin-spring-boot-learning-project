@@ -2,7 +2,6 @@ package com.kimeria.learning.theater.domain
 
 import jakarta.persistence.*
 import java.math.BigDecimal
-import kotlin.properties.Delegates
 
 @Entity
 data class Seat(@Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -10,4 +9,7 @@ data class Seat(@Id @GeneratedValue(strategy = GenerationType.AUTO)
                 val rowNum: Char = 'A',
                 val num: Int = 0,
                 val price: BigDecimal = BigDecimal.ZERO,
-                val description: String = "")
+                val description: String = ""){
+    //@OneToMany(mappedBy = "seat", targetEntity = Booking::class, cascade = [CascadeType.ALL], orphanRemoval = true)
+    //lateinit var bookings: List<Booking>
+}

@@ -1,35 +1,20 @@
 package com.kimeria.learning.theater.domain
 
 import jakarta.persistence.*
+import org.hibernate.annotations.Cascade
+
 
 @Entity
 data class Booking(
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0,
+    val id: Long = 0,
     val title: String = ""){
 
-        @ManyToOne
+        @ManyToOne(cascade = [CascadeType.ALL])
+        //@JoinColumn(name = "seat_id")
         lateinit var seat: Seat
-        @ManyToOne
+
+        @ManyToOne(cascade = [CascadeType.ALL])
+        //@JoinColumn(name = "performance_id")
         lateinit var performance: Performance
 }
-
-/*
-open class Booking() {
-    constructor(
-        id: Long,
-        title: String): this() {
-        this.id = id
-        this.title = title
-    }
-
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Long = 0
-    lateinit var title: String
-    @ManyToOne
-    lateinit var seat: Seat
-    @ManyToOne
-    lateinit var performance: Performance
-}
- */
-

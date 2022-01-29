@@ -1,6 +1,8 @@
 package com.kimeria.learning.theater.services
 
+import com.kimeria.learning.theater.data.SeatRepository
 import com.kimeria.learning.theater.domain.Seat
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
@@ -8,6 +10,9 @@ import java.math.BigDecimal
 class TheaterService {
 
     private val hiddenSeats = mutableListOf<Seat>()
+
+    @Autowired
+    lateinit var seatRepository: SeatRepository
 
     constructor() {
 
@@ -42,7 +47,8 @@ class TheaterService {
     get() = hiddenSeats.toList()
 
     fun find(num: Int, rowNum: Char) : Seat{
-        return seats.filter{it.num == num && it.rowNum == rowNum}.first()
+        val allSeats = seatRepository.findAll()
+        return allSeats.first { it.num == num && it.rowNum == rowNum }
     }
 
 }
